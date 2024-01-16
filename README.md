@@ -1450,9 +1450,9 @@ Using these methods I have shown that, with a not insignificant dataset of Russi
 
 As second example of analysis, I have created an interactive character map, showing all characters present in a story and their interaction patterns. Such maps, while slightly chaotic to non-experts, can be very helpful in understanding the intricasies of interactions between characters and the differences between stories, writers, regions or periods. As discussed by Bonato et al. (2016), such character maps can exhibit many properties of complex networks and can help look at works of literature from a new perspective. The simple large-scale generation of these networks with the help of GPT can introduce new modes of analysis in the field of Literature.
 
-A third and final part of the analysis goes into a Tweaked Bechdel-Wallace test. This test, or at least a slightly tweaked version, for the representation of women in works of art can be programmatically te
+A third and final part of the analysis goes into a Tweaked Bechdel-Wallace test. This test, or at least a slightly tweaked version, for the representation of women in works of art can be programmatically tested using this input from GPT. As shown by the example above, from the 35 books tested, only 24 managed to pass the Tweaked Bechdel-Wallace test. The automation of this test used on a larger scale can also provide interesting insights in the progression of women in literature over time or across different regions.
 
-To conclude, 
+To conclude, the use of GPT can be a valuable addition to the field of literature analysis. It opens up the door for large-scale structured analysis of literature using more objective measures that provide an alternative perspective from personal subjective interpretations. The project above gives an overview of various options one has when trying to perform such an analysis with the support of GPT and the various test and visualizations that could be created. This can result in a better and interesting new perspective of cultural progression over time through the lens of literature.
 
 
 ## References
