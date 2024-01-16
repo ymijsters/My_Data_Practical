@@ -417,7 +417,7 @@ else:
     Fail to reject the null hypothesis. No significant difference detected between the regions.
     
 
-Indeed Russian literature is longer on average, but the difference is still not significant, in contrast to what one might expect based on popular conceptions. Especially given the fact that the presence of "War and Peace" inflates these differences. 
+Indeed Russian literature is longer on average, but the difference is still not significant, in contrast to what one might expect based on popular conceptions. Especially given the fact that the presence of "War and Peace" (the outlier on the Russian side) inflates these differences. 
 
 Now across periods, we can see a clear downward trend. 
 
@@ -845,7 +845,7 @@ def getOneonOneInteractions(character_interaction_dict):
     one_to_one_interaction_dict = {}
     for par_index, character_paragraph_list in character_interaction_dict.items():
         if len(character_paragraph_list) > 1:
-            # Character inter
+            # Create tuples for each combination of 2 characters in the paragraph
             for index in list(itertools.combinations(character_paragraph_list,2)):
                 #index = tuple(character_paragraph_list)
                 if index in one_to_one_interaction_dict.keys():
@@ -911,7 +911,7 @@ createSetOfScatterPlots(4, word_count_list, character_interactions_count_list, l
     
 
 
-Here we can see that especially for 19th century russian books the results are very extreme. with the smaller books approaching no more than 100 interactions, while the larger books can go up to 3.500 character interactions. Again, "war and Peace" is an extreme with its 3.500 character interactions, while also "Ulysses", a 20th Century English story, has over 2.000 character interactions. Particularly, leaving this story out, the number of character interactions seems nearly flat for 20th century english novels.
+Here we can see that especially for 19th century russian books the results are very extreme. with the smaller books approaching no more than 100 interactions, while the larger books can go up to 3.500 character interactions. Again, "war and Peace" is an extreme with its 3.500 character interactions, while also "Ulysses", a 20th Century English story, has over 2.000 character interactions. Particularly, leaving this story out, the number of character interactions seems nearly flat for 20th century english novels. The number of character interactions is so varied within the periods that it is hard to draw any solid conclusions based on the results.
 
 If we look per period and per region:
 
@@ -939,9 +939,7 @@ createSetOfScatterPlots(2, period_word_count_list, period_char_interaction_list,
     
 
 
-Here we can see that both for English as well as 20th century literature, there's a much lower impact of an increase in total work count on character interactions.
-
-**Add stats**
+Here we can see that both for English as well as 20th century literature, there's a much lower impact of an increase in total work count on character interactions. It seems that, with time, character interactions have become less important, in favor of monologues or descriptions. These trends were also found in the analysis of the dialogue.
 
 ### Basic Statistics 5: Character Gender
 The final metric I consider in the basic statistics chapter is the character gender. Here, again, significant support was provided by LLMs to collect a good dataset. 
@@ -1085,13 +1083,11 @@ else:
     Fail to reject the null hypothesis. No significant difference detected between the periods.
     
 
-Also here, there seems to be no significant differences in the ratio of male vs. female characters. 
+Maybe surprisingly here, we can see that there's no significant difference in the ratio of female characters. It might have been expected that for a country that is considered less progressive, women may have played a lesser role in Russian literature, but this does not seem to be the case. 
 
 ## Character Maps
 
-Beyond basic statistics, there various methods described earlier can be used for more complex analysis. 
-
-One way is to create maps that capture all the characters, their interactions and the frequency of their interactions. You can see some examples of these graphs below. As described by Bonato et al. (2016) character maps can be very valuable in understanding and comparing various pieces of literature, the placement, of characters, their intensity of interaction with other characters and the common interaction between side-characters. This can provide interesting insights on what differentiates books. For example, a closely tied net of characters that interact often might fit a more structured, small-world author, while many loosely tied characters represent large-world stories, possibly written by less structured authors. 
+Beyond basic statistics, the various methods described earlier can be used for more complex analysis. One way is to create maps that capture all the characters, their interactions and the frequency of their interactions. You can see some examples of these graphs below. As described by Bonato et al. (2016) character maps can be very valuable in understanding and comparing various pieces of literature, the placement, of characters, their intensity of interaction with other characters and the common interaction between side-characters. This can provide interesting insights on what differentiates books. For example, a closely tied net of characters that interact often might fit a more structured, small-world author, while many loosely tied characters represent large-world stories, possibly written by less structured authors. 
 
 *Note that the use of Plotly to generate graphs for Github readme's does not work correctly, therefore, I have manually updated the readme to include screenshots of the interactive character plots. These interactive plots can still be generated by running the code in Jupyter.*
 
@@ -1175,10 +1171,13 @@ def createGraph(character_dict, interaction_dict):
 #for name in english_20th_century_books_dict.keys():
 #    createGraph(english_20th_century_char_freq[name], english_20th_century_char_interactions[name])
 ```
-
+**Notes from Underground**
 ![png](Data_Practical_Notebook_Yannick_Mijsters_files/Data_Practical_Notebook_Yannick_Mijsters_Char_Map_1.png)
+**Heart of a Dog**
 ![png](Data_Practical_Notebook_Yannick_Mijsters_files/Data_Practical_Notebook_Yannick_Mijsters_Char_Map_2.png)
+**Picture of Dorian Gray**
 ![png](Data_Practical_Notebook_Yannick_Mijsters_files/Data_Practical_Notebook_Yannick_Mijsters_Char_Map_3.png)
+**1984**
 ![png](Data_Practical_Notebook_Yannick_Mijsters_files/Data_Practical_Notebook_Yannick_Mijsters_Char_Map_4.png)
 
 
@@ -1186,7 +1185,7 @@ def createGraph(character_dict, interaction_dict):
 Without being an expert such graphs are not easily interpretable. However, for both Russian books, we can see a more central place for the main character, placed on more on the outskirts of the graph with connections to every other character, while other characters seem less directly connected. This points to more 1-on-1 interactions with the side characters, in contrast to English books which appear to have 3-4-5 person interactions, making the characters more centrally placed. 
 
 ## Tweaked Bechdel-Wallace test.
-As the final topic of the Data Practical, I will describe the analysis of books using a slightly tweaked Bechdel-Wallace test. The Bachdel-Wallace test is a test of female gender representation in various forms of entertainment, for example in books or films (Appel and Gnambs, 2023). The test breaks down to the following question: "Are two or more named women present in a book, and do they talk to each other about something besides a man?"
+As the final topic of the Data Practical, I will describe the analysis of books using a slightly tweaked Bechdel-Wallace test. The Bachdel-Wallace test is a test of female gender representation in various forms of entertainment, for example in books or films (Appel and Gnambs, 2023). The test breaks down to the following question: "Are two or more named women present in a book, and do they talk to each other about something else than about a man?"
 
 Programatically this question is not easy to answer, especially the final requirement "do they talk to each other about something besides a man", is hard to validate given the large variety of words that could be used to refer to a man in each book. Therefore, my analysis of the Bechdel-Wallace test (a.k.a. the "Tweaked Bechdel-Wallace test") tests the following requirements:
 
@@ -1441,18 +1440,18 @@ plot_funnel(funnel_steps)
     
 
 
-The results of this final test may be surprising. Of all books, some of which are almost 200 years old more than 2/3 passes the test. What may be less surprising is that, if we look at the books that are removed, they are all older books, mostly from the 19th century. On the other hand, there does not appear to be a significant difference between the number of Russian books versus English books removed from the list. This may be considered surprising, since Russia does not have the reputation for being a highly progressive country when it comes to female rights. This, however, possibly also shows one flaw in the test: while there may be two female characters in these stories discussing something other than a man, it does not mean that the females are necessarily treated properly. 
+The results of this final test may be surprising. Of all books, some of which are almost 200 years old more than 2/3 passes the test. What may be less surprising is that, if we look at the books that are removed, they are all older books, mostly from the 19th century. On the other hand, there does not appear to be a significant difference between the number of Russian books versus English books removed from the list. This again may be considered surprising, since Russia does not have the reputation for being a highly progressive country. This analysis, however, possibly also shows one flaw in the test: while there may be two female characters in these stories discussing something other than a man, it does not mean that the females are necessarily treated equally. 
 
 ## Conclusion
-As shown by this work, significant, large-scale literary analysis can be performed using data science, but not only that, this work can be made significantly more efficient through the use of new Large Language Models. The repeated use of various simple GPT prompts has enabled the generation of large datasets that help to streamline and refine the programmic analysis of literature. 
+As shown by this work, significant, large-scale literary analysis can be performed using data science, but not only that, this work can be made significantly more efficient through the use of new Large Language Models. The repeated use of various simple GPT prompts has enabled the generation of large datasets that help to streamline and refine the programmatic analysis of literature. 
 
 Using these methods I have shown that, with a not insignificant dataset of Russian and English literature from the 19th and 20th century it is possible to provide detailed results from objective cross-book comparison. Using basic statistics I have shown that many preconceptions of differences between the 19th and 20th century or between Russian and English literature may not be so obviously present as one might expect. For the most basic example, word count, there is no significant difference between the Russian and English literature, nor is there any for the 19th vs. 20th century books, even though we might have expected 20th century books to be clearly shorter. Where a significant difference was found was in the ratio of dialogue versus other text. Here, in particular, Russian literature from the 19th century stood out and included significantly more dialogue than any of the other groups analyzed. This extends to a difference between periods in general, with 19th century books including significantly more dialogue than 20th century books. Interestingly, no differences were found in terms of gender ratio between the different groups of books. 
 
 As second example of analysis, I have created an interactive character map, showing all characters present in a story and their interaction patterns. Such maps, while slightly chaotic to non-experts, can be very helpful in understanding the intricasies of interactions between characters and the differences between stories, writers, regions or periods. As discussed by Bonato et al. (2016), such character maps can exhibit many properties of complex networks and can help look at works of literature from a new perspective. The simple large-scale generation of these networks with the help of GPT can introduce new modes of analysis in the field of Literature.
 
-A third and final part of the analysis goes into a Tweaked Bechdel-Wallace test. This test, or at least a slightly tweaked version, for the representation of women in works of art can be programmatically tested using this input from GPT. As shown by the example above, from the 35 books tested, only 24 managed to pass the Tweaked Bechdel-Wallace test. The automation of this test used on a larger scale can also provide interesting insights in the progression of women in literature over time or across different regions.
+A third and final part of the analysis goes into a Tweaked Bechdel-Wallace test. This test, or at least a slightly tweaked version, for the representation of women in works of art can be programmatically tested using this input from GPT. As shown by the example above, from the 35 books tested, only 24 managed to pass the Tweaked Bechdel-Wallace test. The automation of this test used on a larger scale can also provide interesting insights in the progression of the role of women in literature over time or across different regions.
 
-To conclude, the use of GPT can be a valuable addition to the field of literature analysis. It opens up the door for large-scale structured analysis of literature using more objective measures that provide an alternative perspective from personal subjective interpretations. The project above gives an overview of various options one has when trying to perform such an analysis with the support of GPT and the various test and visualizations that could be created. This can result in a better and interesting new perspective of cultural progression over time through the lens of literature.
+To conclude, the use of LLMs can be a valuable addition to the field of literature analysis. It opens up the door for large-scale structured analysis of literature using more objective measures that provide an alternative perspective from personal subjective interpretations. The project above gives an overview of various options one has when trying to perform such an analysis with the support of GPT and the various test and visualizations that could be created. This can result in a better and interesting new perspective of cultural progression over time through the lens of literature.
 
 
 ## References
