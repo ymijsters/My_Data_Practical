@@ -1,4 +1,12 @@
 # GPT 4.0-aided Analysis of 19th and 20th Century Russian and English Literature
+
+## NOTE: BEFORE RUNNING THE CODE, INCLUDE THE MISSING BOOKS.DB
+Due to filesize limitations on GitHub, the core dataset with all the book content cannot be uploaded and shared, this makes the code not runable. To run the code, follow the following steps:
+1. Clone the Repository
+2. Download the books.db file from https://www.kaggle.com/code/raynardj/starter-classic-english-literature
+3. Copy "books.db" into the db folder (not in txt)
+4. Run the code :)
+
 ## Introduction
 Countless papers have been written comparing Russian and English Literature or Literature of the 19th and 20th century (for example, Emerson (2008)). The breadth and depth of literature of these regions and periods have been a centuries-long inspiration for research into literature as an artform, language, and culture in a broad sense, among other topics. As research topic, researchers can analyse anything from the use of a single word, the style of a single chapter, the psychological effects of a book to the societal impact captured in a collection of books.
 
