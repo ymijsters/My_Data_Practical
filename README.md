@@ -7,6 +7,8 @@ Due to filesize limitations on GitHub, the core dataset with all the book conten
 3. Copy "books.db" into the db folder (not in txt)
 4. Run the code :)
 
+Also note that the code blocks in the Readme have been shortened where possible to limit the length of the Readme document. Full code can still be found in the Jupyter Notebook.
+
 ## Introduction
 Countless papers have been written comparing Russian and English Literature or Literature of the 19th and 20th century (for example, Emerson (2008)). The breadth and depth of literature of these regions and periods have been a centuries-long inspiration for research into literature as an artform, language, and culture in a broad sense, among other topics. As research topic, researchers can analyse anything from the use of a single word, the style of a single chapter, the psychological effects of a book to the societal impact captured in a collection of books.
 
@@ -54,7 +56,7 @@ Based on popular conceptions, we expect here that Russian literature might on av
 
 The following code block describes the dictionaries used to differentiate and load books from their sources and loads the Kaggle Database used to retrieve many books (those with an index in the dictionary).
 
-
+*Code was shortened to make Readme more readible*
 
 ```python
 # 19th Century Russian Books
@@ -70,51 +72,6 @@ russian_19th_century_files = {
     "Eugene Onegin": "eugeneonegin.txt", 
     "Fathers and Sons": "fathersandsons.txt", 
     "The Idiot": "theidiot.txt"
-}
-
-# 20th Century Russian Books
-russian_20th_century_files = {
-    "Mother": "mother.txt",
-    "A Day in the Life of Ivan Denisovich" : "dayinthelife.txt", 
-    "Dr. Zhivago" : "drzhivago.txt", 
-    "Heart of a Dog": "heartofadog.txt", 
-    "Life and Fate": "lifeandfate.txt", 
-    "Petersburg": "petersburg.txt", 
-    "We": "we.txt", 
-    "The Master and Margarita" : "themasterandmargarita.txt", 
-}
-russian_20th_century_files_no_newlines = {
-    "The Life of Insects" : "thelifeofinsects.txt"
-}
-
-# 19th Century English Books
-english_19th_century_ids_html = {
-    "Picture of Dorian Gray" : 885,  
-    "Great Expectations": 222, 
-    "Wuthering Heights": 1084, 
-    "Tale of Two Cities": 40, 
-    "War of the Worlds": 1066,  
-    "The Adventures Of Huckleberry Finn": 666 
-}
-english_19th_century_ids_lines = {
-    "Scarlet Letter": 927, 
-    "Moby Dick": 372 
-}
-
-# 20th Century English Books
-english_20th_century_ids = {
-    "Ulysses": 1046 
-}
-english_20th_century_files = {
-    "To Kill a Mockingbird": "tokillamockingbird.txt", 
-    "1984" : "1984.txt", 
-    "A Brave New World" : "bravenewworld.txt", 
-    "Fahrenheit 451": "fahrenheit451.txt",
-    "Handmaid's Tale": "handmaidstale.txt",
-    "Lord of the Flies": "lordoftheflies.txt",
-    "Of Mice and Men" : "ofmiceandmen.txt",
-    "Tender is the Night": "tenderisthenight.txt",
-    "The Great Gatsby" : "thegreatgatsby.txt"
 }
 ```
 
@@ -142,6 +99,7 @@ For the next step, I will describe the functions that take the full text books a
 
 After these functions have been created, we can use the functions to create all the required dictionaries.
 
+*Code was shortened to make Readme more readible*
 
 ```python
 from itertools import *
@@ -178,22 +136,6 @@ def getBookDictionaryText(text_file):
         paragraph_index += 1
     return book_dict
 
-# Also transform full text books from files into dictionaries, but now using a single new line with 
-# a sentence ending as a paragraph-ending indicator.
-def getBookDictionaryTextNoNL(text_file):
-    file = open("db/txts/" + text_file, "r", encoding="utf8")
-    book_dict = {}
-    paragraph_index = 0
-    paragraphs = re.split("'\n|.\n", allPeriodEndings(file.read()))
-    for paragraph in paragraphs:
-        lines = {}
-        for line_index, line in enumerate(allPeriodEndings(removeSpacesAndNewLines(paragraph)).split(".")):
-            if line != "":    
-                lines[line_index] = line
-        book_dict[paragraph_index] = lines
-        paragraph_index += 1
-    return book_dict
-
 # For books that come from the Kaggle database, the full text first needs to be selected from the DB
 def getTextByBookID(id):
     text_file_dict = {}
@@ -208,22 +150,6 @@ def getBookDictionarySpaces(text_files):
     paragraph_index = 0
     for text_file_index, text_file in text_files.iterrows():
         paragraphs = (text_file.text.split("\n\n\n\n  "))
-        for paragraph in paragraphs:
-            lines = {}
-            for line_index, line in enumerate(allPeriodEndings(removeSpacesAndNewLines(paragraph)).split(".")):
-                if line != "":    
-                    lines[line_index] = line
-            book_dict[paragraph_index] = lines
-            paragraph_index += 1
-    return book_dict
-
-# Transform book from DB in into the dictionary.
-# For books that are formatted with 5 (or more) new lines to indicate a new paragraph.
-def getBookDictionary5Lines(text_files):
-    book_dict = {}
-    paragraph_index = 0
-    for text_file_index, text_file in text_files.iterrows():
-        paragraphs = (text_file.text.split("\n\n\n\n\n"))
         for paragraph in paragraphs:
             lines = {}
             for line_index, line in enumerate(allPeriodEndings(removeSpacesAndNewLines(paragraph)).split(".")):
@@ -263,37 +189,11 @@ russian_19th_century_books_dict["Crime and Punishment"] = getBookDictionarySpace
 russian_19th_century_books_dict["War and Peace"] = getBookDictionarySpaces(getTextByBookID(russian_19th_century_ids["War and Peace"]))
 russian_19th_century_books_dict["Brothers Karamazov"] = getBookDictionarySpaces(getTextByBookID(russian_19th_century_ids["Brothers Karamazov"]))
 
-# Books using 5 new line paragraph gaps
-russian_19th_century_books_dict["Dead Souls"] = getBookDictionary5Lines(getTextByBookID(russian_19th_century_ids["Dead Souls"]))
-russian_19th_century_books_dict["Notes from the Underground"] = getBookDictionary5Lines(getTextByBookID(russian_19th_century_ids["Notes from the Underground"]))
-
 # Get books from Texts
 russian_19th_century_books_dict["The Duel"] = getBookDictionaryText(russian_19th_century_files["The Duel"])
 russian_19th_century_books_dict["Eugene Onegin"] = getBookDictionaryText(russian_19th_century_files["Eugene Onegin"])
 russian_19th_century_books_dict["Fathers and Sons"] = getBookDictionaryText(russian_19th_century_files["Fathers and Sons"])
-russian_19th_century_books_dict["The Idiot"] = getBookDictionaryText(russian_19th_century_files["The Idiot"]) #Werkt nog niet
-
-russian_20th_century_books_dict = {}
-# Books from text using normal formatting
-for name, file_name in russian_20th_century_files.items():
-    russian_20th_century_books_dict[name] = getBookDictionaryText(file_name)
-# Books from text without normal new line characters
-for name, file_name in russian_20th_century_files_no_newlines.items():
-    russian_20th_century_books_dict[name] = getBookDictionaryTextNoNL(file_name)
-
-#English
-english_19th_century_books_dict = {}
-# Books from DB classic formatting
-for name, id in english_19th_century_ids_lines.items():
-    english_19th_century_books_dict[name] = getBookDictionarySpaces(getTextByBookID(english_19th_century_ids_lines[name]))
-# Books from DB using HTML formattinb
-for name, id in english_19th_century_ids_html.items():
-    english_19th_century_books_dict[name] = getBookDictionaryHTML(getTextByBookID(english_19th_century_ids_html[name]))
-
-english_20th_century_books_dict = {}
-# Books from full text using classic formatting
-for name, file_name in english_20th_century_files.items():
-    english_20th_century_books_dict[name] = getBookDictionaryText(file_name)
+russian_19th_century_books_dict["The Idiot"] = getBookDictionaryText(russian_19th_century_files["The Idiot"]) 
 ```
 
 Now that all book dictionaries have been created. We can run the statistics to see the various book length and compare regions and periods. 
@@ -678,6 +578,7 @@ Now, having loaded all the characters, we can count their occurences in the book
 
 These results of this analysis will be set out against the total number of words in the books. Therefore, a scatterplot with regression line is used to analyze the results.
 
+*Code was shortened to make Readme more readible*
 
 ```python
 # Function to count all characters in the book.
@@ -712,18 +613,7 @@ for name, book in russian_19th_century_books_dict.items():
     frequencies = getCharacterFrequencies(book,russian_19th_century_char_dict[name])
     russian_19th_century_char_freq[name] = frequencies
     char_count_list[0].append(len(frequencies.keys()))
-for name, book in russian_20th_century_books_dict.items():
-    frequencies = getCharacterFrequencies(book,russian_20th_century_char_dict[name])
-    russian_20th_century_char_freq[name] = frequencies
-    char_count_list[1].append(len(frequencies.keys()))
-for name, book in english_19th_century_books_dict.items():
-    frequencies = getCharacterFrequencies(book,english_19th_century_char_dict[name])
-    english_19th_century_char_freq[name] = frequencies
-    char_count_list[2].append(len(frequencies.keys()))
-for name, book in english_20th_century_books_dict.items():
-    frequencies = getCharacterFrequencies(book,english_20th_century_char_dict[name])
-    english_20th_century_char_freq[name] = frequencies
-    char_count_list[3].append(len(frequencies.keys()))
+#Similar for other periods
 ```
 
 
@@ -818,7 +708,7 @@ Characters, however, are not only present in the story, they usually also intera
 #### Method: Character interactions
 Capturing character interactions is significantly easier than the previous steps. For this, I use a simplified method, where the presence of two characters in the same paragraph means that the characters interact. Here, I will count each one-to-one interaction, meaning that if three characters interact in a paragraph, this counts for 3 interactions: "A-B", "A-C" and "B-C". For this, the following method is used capturing all characters present in each paragraph.
 
-
+*Code was shortened to make Readme more readible*
 ```python
 import itertools
 
@@ -869,14 +759,8 @@ def getOneonOneInteractions(character_interaction_dict):
 ```python
 # Now actually perform the interaction analysis for all books.
 russian_19th_century_char_interactions = {}
-russian_20th_century_char_interactions = {}
-english_19th_century_char_interactions = {}
-english_20th_century_char_interactions = {}
 
 russian_19th_century_char_list_dict = {}
-russian_20th_century_char_list_dict = {}
-english_19th_century_char_list_dict = {}
-english_20th_century_char_list_dict = {}
 
 character_interactions_count_list = [[],[],[],[]]
 for name, book in russian_19th_century_books_dict.items():
@@ -890,25 +774,7 @@ for name, book in russian_19th_century_books_dict.items():
     russian_19th_century_char_interactions[name] = one_to_one_interactions
     # Now create array with one-to-one interactions
     character_interactions_count_list[0].append(sum(one_to_one_interactions.values()))
-for name, book in russian_20th_century_books_dict.items():
-    interactions = getCharacterInteractions(book,russian_20th_century_char_dict[name])
-    russian_20th_century_char_list_dict[name] = interactions
-    # Then create a list with 1-to-1 character interactions (so if there are three characters, you will get: AB, AC, BC, as these are the character pairs that interacted)
-    one_to_one_interactions = getOneonOneInteractions(interactions)
-    russian_20th_century_char_interactions[name] = one_to_one_interactions
-    character_interactions_count_list[1].append(sum(one_to_one_interactions.values()))
-for name, book in english_19th_century_books_dict.items():
-    interactions = getCharacterInteractions(book,english_19th_century_char_dict[name])
-    english_19th_century_char_list_dict[name] = interactions
-    one_to_one_interactions = getOneonOneInteractions(interactions)
-    english_19th_century_char_interactions[name] = one_to_one_interactions
-    character_interactions_count_list[2].append(sum(one_to_one_interactions.values()))
-for name, book in english_20th_century_books_dict.items():
-    interactions = getCharacterInteractions(book,english_20th_century_char_dict[name])
-    english_20th_century_char_list_dict[name] = interactions
-    one_to_one_interactions = getOneonOneInteractions(interactions)
-    english_20th_century_char_interactions[name] = one_to_one_interactions
-    character_interactions_count_list[3].append(sum(one_to_one_interactions.values()))
+#Similar for other periods
 
 createSetOfScatterPlots(4, word_count_list, character_interactions_count_list, labels, "Word Count", "Number of Interactions")
 ```
@@ -994,6 +860,7 @@ female_char_dict_c_and_p = {
 
 To create the stats for the gender of the character in the story, we will first validate the presence of each character in the story and then determine the gender ratio:
 
+*Code was shortened to make Readme more readible*
 
 ```python
 gender_ratio_list = [[],[],[],[]]
@@ -1003,24 +870,6 @@ for name, char_freq in russian_19th_century_char_freq.items():
         if russian_19th_century_char_gender_dict[name][char]:
             female += 1
     gender_ratio_list[0].append(female / len(char_freq.keys()))
-for name, char_freq in russian_20th_century_char_freq.items():
-    female = 0
-    for char in char_freq.keys():
-        if russian_20th_century_char_gender_dict[name][char]:
-            female += 1
-    gender_ratio_list[1].append(female / len(char_freq.keys()))
-for name, char_freq in english_19th_century_char_freq.items():
-    female = 0
-    for char in char_freq.keys():
-        if english_19th_century_char_gender_dict[name][char]:
-            female += 1
-    gender_ratio_list[2].append(female / len(char_freq.keys()))
-for name, char_freq in english_20th_century_char_freq.items():
-    female = 0
-    for char in char_freq.keys():
-        if english_20th_century_char_gender_dict[name][char]:
-            female += 1
-    gender_ratio_list[3].append(female / len(char_freq.keys()))
 
 createBoxPlot(gender_ratio_list, graph_labels, "Female - Male Ratio", word_count_list_ylabel, "Gender Ratio Female / Male")
 
@@ -1107,6 +956,7 @@ def createGraph(character_dict, interaction_dict):
     #Create Graph
     G = nx.DiGraph()
 
+    # Add nodes (points) to the graph
     nodes_and_labels = {}
     for index, character in enumerate(character_dict.keys()):
         nodes_and_labels[index] = character
@@ -1114,9 +964,13 @@ def createGraph(character_dict, interaction_dict):
     G.add_nodes_from(nodes_and_labels)
 
     weighted_edges = []
+    # Add the relevant edges (lines)
     for interaction, frequency in interaction_dict.items():
+        # Edge point 1 
         node0 = list(nodes_and_labels.keys())[list(nodes_and_labels.values()).index(interaction[0])]
+        # Edge point 2
         node1 = list(nodes_and_labels.keys())[list(nodes_and_labels.values()).index(interaction[1])]
+        # Provide a weight to each edge (based on the # of interactions)
         edge = (node0, node1, frequency)
         weighted_edges.append(edge)
     #print(weighted_edges)
@@ -1127,12 +981,14 @@ def createGraph(character_dict, interaction_dict):
 
     fig = go.Figure()
 
+    # Distribute the edges over the image
     for node, label in nodes_and_labels.items():
         x, y = pos[node]
         fig.add_trace(go.Scatter(x=[x], y=[y], text=label, mode="markers+text", name=label, marker=dict(size=20)))
 
     # Add edges
     edge_trace = []
+    # Actually draw each edge in the graph
     for edge in G.edges(data=True):
         if edge[2]['weight'] > 0:
             char_1 = edge[0]
@@ -1142,7 +998,7 @@ def createGraph(character_dict, interaction_dict):
             x1, y1 = pos[char_2]
 
             text   = str(char_1) + '--' + str(char_2) + ': ' + str(edge[2]['weight'])
-            
+            # Adjust each edge to become darker if the weight is higher.
             trace  = go.Scatter(x = [x0, x1, None], y = [y0, y1, None], line = dict(width=0.3*edge[2]['weight']**0.2,color='cornflowerblue'), hoverinfo= 'text', text = ([text]), mode='lines'
                                 )
 
@@ -1222,6 +1078,7 @@ A programmatic analysis of this test will result in listing those books that hav
 
 The three requirements have been modelled below through a three-step funnel.
 
+*Code was shortened to make Readme more readible*
 
 ```python
 # A function for loading the funnel visual
@@ -1259,40 +1116,17 @@ books_two_females = 0
 # (From the previous gender question, a flag for male/female is present in the character list)
 for name, chars in russian_19th_century_char_freq.items():
     true_count = 0
+    # Go over all characters
     for char in chars.keys():
+        # Count the females
         if russian_19th_century_char_gender_dict[name][char]:
             true_count += 1
+    # Confirm that at least 2 characters are female
     if true_count > 1:
         books_two_females += 1
     else:
         print(name)
-for name, chars in russian_20th_century_char_freq.items():
-    true_count = 0
-    for char in chars.keys():
-        if russian_20th_century_char_gender_dict[name][char]:
-            true_count += 1
-    if true_count > 1:
-        books_two_females += 1
-    else:
-        print(name)
-for name, chars in english_19th_century_char_freq.items():
-    true_count = 0
-    for char in chars.keys():
-        if english_19th_century_char_gender_dict[name][char]:
-            true_count += 1
-    if true_count > 1:
-        books_two_females += 1
-    else:
-        print(name)
-for name, chars in english_20th_century_char_freq.items():
-    true_count = 0
-    for char in chars.keys():
-        if english_20th_century_char_gender_dict[name][char]:
-            true_count += 1
-    if true_count > 1:
-        books_two_females += 1
-    else:
-        print(name)
+# Same for other groups
 funnel_steps.append(books_two_females)
 
 # Funnel step 2: Do the females interact without a man?
@@ -1301,7 +1135,9 @@ female_int_count = 0
 # Review all the books in each group to see if there's a paragraph in which two females interact
 for book_name, char_int in russian_19th_century_char_interactions.items():
     female_int = False
+    # Go over each pair of characters interacting per paragraph
     for char_tuple in char_int.keys():
+        # See if there is one pair of characters in a paragraph that are both female
         if russian_19th_century_char_gender_dict[book_name][char_tuple[0]] and russian_19th_century_char_gender_dict[book_name][char_tuple[1]]:
             female_int = True
             break
@@ -1309,36 +1145,7 @@ for book_name, char_int in russian_19th_century_char_interactions.items():
         female_int_count += 1
     else:
         print(book_name)
-for book_name, char_int in russian_20th_century_char_interactions.items():
-    female_int = False
-    for char_tuple in char_int.keys():
-        if russian_20th_century_char_gender_dict[book_name][char_tuple[0]] and russian_20th_century_char_gender_dict[book_name][char_tuple[1]]:
-            female_int = True
-            break
-    if female_int:
-        female_int_count += 1
-    else:
-        print(book_name)
-for book_name, char_int in english_19th_century_char_interactions.items():
-    female_int = False
-    for char_tuple in char_int.keys():
-        if english_19th_century_char_gender_dict[book_name][char_tuple[0]] and english_19th_century_char_gender_dict[book_name][char_tuple[1]]:
-            female_int = True
-            break
-    if female_int:
-        female_int_count += 1
-    else:
-        print(book_name)
-for book_name, char_int in english_20th_century_char_interactions.items():
-    female_int = False
-    for char_tuple in char_int.keys():
-        if english_20th_century_char_gender_dict[book_name][char_tuple[0]] and english_20th_century_char_gender_dict[book_name][char_tuple[1]]:
-            female_int = True
-            break
-    if female_int:
-        female_int_count += 1
-    else:
-        print(book_name)
+# Same for other groups
 funnel_steps.append(female_int_count)
 
 
@@ -1365,48 +1172,7 @@ for book_name, char_list_dict in russian_19th_century_char_list_dict.items():
                 female_only_int_count += 1
                 print(book_name)
                 break 
-for book_name, char_list_dict in russian_20th_century_char_list_dict.items():
-    female_int = False
-    for char_list in char_list_dict.values():
-        if len(char_list) < 2:
-            continue
-        else:
-            only_female = True
-            for char in char_list:
-                if not russian_20th_century_char_gender_dict[book_name][char]:
-                    only_female = False
-            if only_female:
-                female_only_int_count += 1
-                print(book_name)
-                break 
-for book_name, char_list_dict in english_19th_century_char_list_dict.items():
-    female_int = False
-    for char_list in char_list_dict.values():
-        if len(char_list) < 2:
-            continue
-        else:
-            only_female = True
-            for char in char_list:
-                if not english_19th_century_char_gender_dict[book_name][char]:
-                    only_female = False
-            if only_female:
-                female_only_int_count += 1
-                print(book_name)
-                break 
-for book_name, char_list_dict in english_20th_century_char_list_dict.items():
-    female_int = False
-    for char_list in char_list_dict.values():
-        if len(char_list) < 2:
-            continue
-        else:
-            only_female = True
-            for char in char_list:
-                if not english_20th_century_char_gender_dict[book_name][char]:
-                    only_female = False
-            if only_female:
-                female_only_int_count += 1
-                print(book_name)
-                break 
+# Same for toher groups
 funnel_steps.append(female_only_int_count)
 
 # Plot the funnel
