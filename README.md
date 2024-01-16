@@ -1179,12 +1179,24 @@ def createGraph(character_dict, interaction_dict):
 #for name in english_20th_century_books_dict.keys():
 #    createGraph(english_20th_century_char_freq[name], english_20th_century_char_interactions[name])
 ```
+
+
+
 **Notes from Underground**
 ![png](Data_Practical_Notebook_Yannick_Mijsters_files/Data_Practical_Notebook_Yannick_Mijsters_Char_Map_1.png)
+
+
+
 **Heart of a Dog**
 ![png](Data_Practical_Notebook_Yannick_Mijsters_files/Data_Practical_Notebook_Yannick_Mijsters_Char_Map_2.png)
+
+
+
 **Picture of Dorian Gray**
 ![png](Data_Practical_Notebook_Yannick_Mijsters_files/Data_Practical_Notebook_Yannick_Mijsters_Char_Map_3.png)
+
+
+
 **1984**
 ![png](Data_Practical_Notebook_Yannick_Mijsters_files/Data_Practical_Notebook_Yannick_Mijsters_Char_Map_4.png)
 
