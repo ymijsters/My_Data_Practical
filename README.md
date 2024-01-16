@@ -1,6 +1,6 @@
 # GPT 4.0-aided Analysis of 19th and 20th Century Russian and English Literature
 ## Introduction
-Countless papers have been written comparing Russian and English Literature or Literature of the 19th and 20th century. The breadth and depth of literature of these regions and periods have been a centuries-long inspiration for research into literature as an artform, language, and culture in a broad sense, among other topics. As research topic, researchers can analyse anything from the use of a single word, the style of a single chapter, the psychological effects of a book to the societal impact captured in a collection of books.
+Countless papers have been written comparing Russian and English Literature or Literature of the 19th and 20th century (for example, Emerson (2008)). The breadth and depth of literature of these regions and periods have been a centuries-long inspiration for research into literature as an artform, language, and culture in a broad sense, among other topics. As research topic, researchers can analyse anything from the use of a single word, the style of a single chapter, the psychological effects of a book to the societal impact captured in a collection of books.
 
 However, one challenge with doing any type of analysis of literature is balancing personal interpretation, prone to subjectivity, and the objective analysis of a work, prone to oversimplification and tedious effort. On the one hand, one can write about one's own interpretation of a work, but such analysis is bound to conflict with another reader, taking a different angle when reading the book. On the other hand, objective analysis, using, for example, the occurence of specific words as a measure of analysis, is bound to miss the depths and complexities of a specific work. Moreover, such analysis used to be very time consuming. For example, a simple analysis of the occurences of characters in a story requires one to recognize and capture all the different names a character has throughout the book, to then count all occurences of each name of each character. 
 
@@ -18,17 +18,26 @@ LLMs can play an interesting role bringing both methods together, especially sim
 
 All these metrics can be used to draw broader conclusion about culture in respective regions or periods. Moreover, it enables the comparison of large numbers of literary works without the extensive and tedious capturing of metrics. While not qualified, as a literary expert, I will use these metrics to draw tentative conclusion based on the data and describe how they might indicate certain cultural or literary patterns.
 
-*[Small paragraph on some differences between regions and periods.]*
-
 In the rest of the document, to simplify understanding, I will combine the methods and result section for each metric (major bullet point in the list above). Finally, I will draw a brief conclusion about the use of this method for analyzing literary works.
 
 ## Basic Statistics
 
 ### Method: Book Selection
 
-Before going through some initial simple statistics on the books, a note on book selection. Books have been selected on a convenience basis, based on books that had full text documents available. The following books have been selected. Books have been collected from: Kaggle (Kaggle.com), Project Gutenberg and Archive.org. 
+Before going through some initial simple statistics on the books, a note on book selection. Books have been selected on a convenience basis, based on books that had full text documents available. The following books have been selected. Books have been collected from: Kaggle (see Zhang (2020)), Project Gutenberg and Archive.org. 
 
-// Insert Markdown Tables
+| 19th Century Russian Books                 |                   20th Century Russian Books                  |            19th Century English Books           |         20th Century English Books         |
+|:------------------------------------------:|:-------------------------------------------------------------:|:-----------------------------------------------:|:------------------------------------------:|
+| Brother Karamazov - Fyodor Dostoevsky      | Mother - Maxim Gorky                                          | Picture of Dorian Gray - Oscar Wilde            | To Kill a Mockingbird - Harper Lee         |
+| Crime and Punishment - Fyodor Dostoevsky   | A Day in the Life of Ivan Denisovich - Aleksandr Solzhenitsyn | Great Expectations - Charles Dickens            | 1984 - George Orwell                       |
+| Notes from Underground - Fyodor Dostoevsky | Dr. Zhivago - Boris Pasternak                                 | Wuthering Heights - Emily Bronte                | A Brave New World - Aldous Huxley          |
+| The Idiot - Fyodor Dostoevsky              | Heart of a Dog - Mikhail Bulgakov                             | Tale of Two Cities - Charles Dickens            | Handmaid's Tale - Margaret Atwood          |
+| War and Peace - Leo Tolstoy                | Life and Fate - Vasily Grossman                               | War of the Worlds - H.G. Wells                  | Lord of the Flies - William Golding        |
+| The Duel - Anton Checkov                   | Petersburg - Andrei Bely                                      | The Adventures of Huckleberry Finn - Mark Twain | Of Mice and Men - John Steinbeck           |
+| Dead Souls - Nikolai Gogol                 | We - Yevgeny Zamyatin                                         | Scarlett Letter - Nathaniel Hawthorne           | Tender is the Night - F. Scott Fitzgerald  |
+| Eugene Onegin - Alexander Pushkin          | The Master and Margerita - Mikhail Bulgakov                   | Moby Dick - Herman Melville                     | The Great Gatsby - F. Scott Fitzgerald     |
+| Fathers and Sons - Ivan Turgenev           | The Life of Insects - Viktor Pelevin                          |                                                 | The Old Man and the Sea - Ernest Hemingway |
+
 
 ### Basic Statistic 1: Word Count per book
 The first basic statistic that I will describe is the number of words in a book. For this, the digital version of each book is analyzed and full texts are converted to dictionaries capturing each paragraph and each sentence separately. For this exercise, these sentences are split into words. 
@@ -619,7 +628,7 @@ Some, but not all, of these issues in counting the occurence of characters can n
 
 This results in an array of names for each character, which can be used to identify the minimal appearance of characters in books. More appearances are still possible, for example through the use of pronouns, but not less. 
 
-The code for all these character dictionaries is extensive, therefore, I will collapse the code box, but if you open it, you can find a brief description of how they work in the first set of characters.
+The code for all these character dictionaries is extensive, therefore, I have manually limited the code box in this read me file. The full code is available in the Jupyter notebook.
 
 
 ```python
@@ -766,9 +775,7 @@ createSetOfScatterPlots(4, word_count_list, char_count_list, graph_labels, "Word
 
 As we can see, for all groups of books, there's a clear upward where larger books include more characters. Yet, there are difference in the steepness of the lines. 
 
-**[Compare statistically]**
-
-Now we will assess the effects of region and period: 
+When I assess the effects of region and period: 
 
 
 ```python
@@ -795,9 +802,7 @@ createSetOfScatterPlots(2, [word_count_list[0] + word_count_list[2], word_count_
     
 
 
-**[Compare statistically]**
-
-Especially in the 20th century the line seems to be less steep, but starts at a much higher number of characters. So alongside the trend of less dialogue in the 20th century, the number of characters seems to have somewhat increased. 
+It is clear that especially in the 20th century the line seems to be less steep, but starts at a much higher number of characters. So alongside the trend of less dialogue in the 20th century, the number of characters seems to have somewhat increased. The results steepness of the line for Russian and 19th century literature might also be explained by the presence of "War and Peace", a book with an incredible 55 characters across its more than 500.000 words. On a dataset of up to 20 values, such an entry has a significant effect. 
 
 ### Basic Statistics 4: Character Interactions
 Characters, however, are not only present in the story, they usually also interact. Therefore, the next stat assessed is the number of character interactions. 
@@ -906,9 +911,7 @@ createSetOfScatterPlots(4, word_count_list, character_interactions_count_list, l
     
 
 
-Here we can see that especially for 19th century russian books the results are very extreme. with the smaller books approaching no more than 100 interactions, while the larger books can go up to 3.500 character interactions. 
-
-**Add stats**
+Here we can see that especially for 19th century russian books the results are very extreme. with the smaller books approaching no more than 100 interactions, while the larger books can go up to 3.500 character interactions. Again, "war and Peace" is an extreme with its 3.500 character interactions, while also "Ulysses", a 20th Century English story, has over 2.000 character interactions. Particularly, leaving this story out, the number of character interactions seems nearly flat for 20th century english novels.
 
 If we look per period and per region:
 
@@ -936,7 +939,7 @@ createSetOfScatterPlots(2, period_word_count_list, period_char_interaction_list,
     
 
 
-Here we can see that both for English as well as 20th century literature, there's a significantly lower impact of an increase in total work count on character interactions.
+Here we can see that both for English as well as 20th century literature, there's a much lower impact of an increase in total work count on character interactions.
 
 **Add stats**
 
@@ -949,7 +952,7 @@ In this case, the character dictionaries described above are used as an input fo
     "Full_name_of_character": True (True = Female, False = Male)
 }
 
-Again, the resulting dataset is very extensive in size therefore I will hide the field.
+Again, the resulting dataset is very extensive in size therefore I have manually limited the length to provide one example.
 
 
 ```python
@@ -981,7 +984,6 @@ female_char_dict_c_and_p = {
     'Porfiry Petrovitch': False,
     'Katerina Ivanovna Marmeladov': True
 }
-
 ```
 
 To create the stats for the gender of the character in the story, we will first validate the presence of each character in the story and then determine the gender ratio:
@@ -1089,9 +1091,9 @@ Also here, there seems to be no significant differences in the ratio of male vs.
 
 Beyond basic statistics, there various methods described earlier can be used for more complex analysis. 
 
-One way is to create maps that capture all the characters, their interactions and the frequency of their interactions. You can see some examples of these graphs below.
+One way is to create maps that capture all the characters, their interactions and the frequency of their interactions. You can see some examples of these graphs below. As described by Bonato et al. (2016) character maps can be very valuable in understanding and comparing various pieces of literature, the placement, of characters, their intensity of interaction with other characters and the common interaction between side-characters. This can provide interesting insights on what differentiates books. For example, a closely tied net of characters that interact often might fit a more structured, small-world author, while many loosely tied characters represent large-world stories, possibly written by less structured authors. 
 
-*Note that the use of Plotly to generate graphs for Github readme's does not work correctly, therefore, I have manually updated the readme to include screenshots of the interactive character plots. These interactive plots can still be generated by running the code in Jupyter.
+*Note that the use of Plotly to generate graphs for Github readme's does not work correctly, therefore, I have manually updated the readme to include screenshots of the interactive character plots. These interactive plots can still be generated by running the code in Jupyter.*
 
 
 ```python
@@ -1156,30 +1158,28 @@ def createGraph(character_dict, interaction_dict):
                   hovermode='closest')
     fig.show()
 ```
-
-
+   
 ```python
 #createGraph(russian_19th_century_char_freq["Notes from the Underground"], russian_19th_century_char_interactions["Notes from the Underground"])
 #createGraph(russian_20th_century_char_freq["Heart of a Dog"], russian_20th_century_char_interactions["Heart of a Dog"])
 #createGraph(english_19th_century_char_freq["Picture of Dorian Gray"], english_19th_century_char_interactions["Picture of Dorian Gray"])
 #createGraph(english_20th_century_char_freq["1984"], english_20th_century_char_interactions["1984"])
 
-'''
-for name in russian_19th_century_books_dict.keys():
-    createGraph(russian_19th_century_char_freq[name], russian_19th_century_char_interactions[name])
-for name in russian_20th_century_books_dict.keys():
-    createGraph(russian_20th_century_char_freq[name], russian_20th_century_char_interactions[name])
-for name in english_19th_century_books_dict.keys():
-    createGraph(english_19th_century_char_freq[name], english_19th_century_char_interactions[name])
-for name in english_20th_century_books_dict.keys():
-    createGraph(english_20th_century_char_freq[name], english_20th_century_char_interactions[name])
-    '''
+
+#for name in russian_19th_century_books_dict.keys():
+#    createGraph(russian_19th_century_char_freq[name], russian_19th_century_char_interactions[name])
+#for name in russian_20th_century_books_dict.keys():
+#    createGraph(russian_20th_century_char_freq[name], russian_20th_century_char_interactions[name])
+#for name in english_19th_century_books_dict.keys():
+#    createGraph(english_19th_century_char_freq[name], english_19th_century_char_interactions[name])
+#for name in english_20th_century_books_dict.keys():
+#    createGraph(english_20th_century_char_freq[name], english_20th_century_char_interactions[name])
 ```
 
-
-
-
-    '\nfor name in russian_19th_century_books_dict.keys():\n    createGraph(russian_19th_century_char_freq[name], russian_19th_century_char_interactions[name])\nfor name in russian_20th_century_books_dict.keys():\n    createGraph(russian_20th_century_char_freq[name], russian_20th_century_char_interactions[name])\nfor name in english_19th_century_books_dict.keys():\n    createGraph(english_19th_century_char_freq[name], english_19th_century_char_interactions[name])\nfor name in english_20th_century_books_dict.keys():\n    createGraph(english_20th_century_char_freq[name], english_20th_century_char_interactions[name])\n    '
+![png](Data_Practical_Notebook_Yannick_Mijsters_files/Data_Practical_Notebook_Yannick_Mijsters_Char_Map_1.png)
+![png](Data_Practical_Notebook_Yannick_Mijsters_files/Data_Practical_Notebook_Yannick_Mijsters_Char_Map_2.png)
+![png](Data_Practical_Notebook_Yannick_Mijsters_files/Data_Practical_Notebook_Yannick_Mijsters_Char_Map_3.png)
+![png](Data_Practical_Notebook_Yannick_Mijsters_files/Data_Practical_Notebook_Yannick_Mijsters_Char_Map_4.png)
 
 
 
@@ -1441,12 +1441,25 @@ plot_funnel(funnel_steps)
     
 
 
-The results of this final test may be surprising. Of all books, some of which are almost 200 years old more than 2/3 passes the test. What may be less surprising is that, if we look at the books that are removed, they are all older books, mostly from the 19th century. On the other hand, there does not appear to be a significant difference between the number of Russian books versus English books removed from the list. 
+The results of this final test may be surprising. Of all books, some of which are almost 200 years old more than 2/3 passes the test. What may be less surprising is that, if we look at the books that are removed, they are all older books, mostly from the 19th century. On the other hand, there does not appear to be a significant difference between the number of Russian books versus English books removed from the list. This may be considered surprising, since Russia does not have the reputation for being a highly progressive country when it comes to female rights. This, however, possibly also shows one flaw in the test: while there may be two female characters in these stories discussing something other than a man, it does not mean that the females are necessarily treated properly. 
 
 ## Conclusion
+As shown by this work, significant, large-scale literary analysis can be performed using data science, but not only that, this work can be made significantly more efficient through the use of new Large Language Models. The repeated use of various simple GPT prompts has enabled the generation of large datasets that help to streamline and refine the programmic analysis of literature. 
+
+Using these methods I have shown that, with a not insignificant dataset of Russian and English literature from the 19th and 20th century it is possible to provide detailed results from objective cross-book comparison. Using basic statistics I have shown that many preconceptions of differences between the 19th and 20th century or between Russian and English literature may not be so obviously present as one might expect. For the most basic example, word count, there is no significant difference between the Russian and English literature, nor is there any for the 19th vs. 20th century books, even though we might have expected 20th century books to be clearly shorter. Where a significant difference was found was in the ratio of dialogue versus other text. Here, in particular, Russian literature from the 19th century stood out and included significantly more dialogue than any of the other groups analyzed. This extends to a difference between periods in general, with 19th century books including significantly more dialogue than 20th century books. Interestingly, no differences were found in terms of gender ratio between the different groups of books. 
+
+As second example of analysis, I have created an interactive character map, showing all characters present in a story and their interaction patterns. Such maps, while slightly chaotic to non-experts, can be very helpful in understanding the intricasies of interactions between characters and the differences between stories, writers, regions or periods. As discussed by Bonato et al. (2016), such character maps can exhibit many properties of complex networks and can help look at works of literature from a new perspective. The simple large-scale generation of these networks with the help of GPT can introduce new modes of analysis in the field of Literature.
+
+A third and final part of the analysis goes into a Tweaked Bechdel-Wallace test. This test, or at least a slightly tweaked version, for the representation of women in works of art can be programmatically te
+
+To conclude, 
 
 
 ## References
-Markus Appel and Timo Gnambs. Women in Fiction: Bechdel-Wallace Test Results for the Highest-Grossing Movies of the Last Four Decades. Psychology of Popular Media, 12(4):499, 10 2023. ISSN 2689-6567. doi: 10.1037/PPM0000436. URL https://openurl.ebsco.com/contentitem/doi: 10.1037%2Fppm0000436?sid=ebsco:plink:crawler&id=ebsco:doi:10.1037%2Fppm0000436.
+Emerson, C. (2008). *The Cambridge introduction to Russian literature.* Cambridge University Press.
 
+Zhang, X. (2020). *Starter: Classic English Literature* | Kaggle. https://www.kaggle.com/code/raynardj/starter-classic-english-literature
 
+Appel, M., & Gnambs, T. (2023). *Women in Fiction: Bechdel-Wallace Test Results for the Highest-Grossing Movies of the Last Four Decades.* Psychology of Popular Media, 12(4), 499. https://doi.org/10.1037/PPM0000436
+
+Bonato, A., D’Angelo, D. R., Elenberg, E. R., Gleich, D. F., & Hou, Y. (2016). Mining and modeling character networks. Lecture Notes in Computer Science (Including Subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics), 10088 LNCS, 100–114. https://doi.org/10.1007/978-3-319-49787-7_9/COVER
